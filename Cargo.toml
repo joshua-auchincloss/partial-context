@@ -3,12 +3,6 @@ members = ["partial-context", "macros"]
 resolver = "2"
 
 [workspace.package]
-allow_dirty = false
-dependencies_update = true
-git_release_enable = true
-pr_labels = ["release"]
-publish_allow_dirty = false
-semver_check = true
 authors = ["Joshua A. <joshua.auchincloss@proton.me>"]
 description = "Partial Context Types"
 documentation = "https://github.com/joshua-auchincloss/partial-context"
@@ -20,10 +14,3 @@ rust-version = "1.75.0"
 version = "0.1.0"
 
 [workspace.dependencies]
-
-
-[[package]]
-name = "partial-context"
-changelog_update = true
-git_release_enable = true
-publish = true
