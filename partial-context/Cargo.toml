@@ -14,5 +14,9 @@ publish = true
 
 [lib]
 
+[features]
+default = ["derive"]
+derive = ["partial-context-codegen"]
+
 [dependencies]
-partial-context-codegen = { path = "../macros" }
+partial-context-codegen = { path = "../macros", version = "0.1", optional = true }
