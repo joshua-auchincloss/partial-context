@@ -1,8 +1,19 @@
 # Partial Context
 
+[![tests](https://img.shields.io/github/actions/workflow/status/joshua-auchincloss/partial-context/test.yaml?label=Tests)](https://github.com/joshua-auchincloss/partial-context)
+[![latest](https://img.shields.io/crates/v/partial-context)](https://crates.io/crates/partial-context)
+[![downloads](https://img.shields.io/crates/dr/partial-context)](https://crates.io/crates/partial-context)
+
 Basic traits for deterministic partial / context variants
 
 ## Usage
+
+In your `cargo.toml`
+
+```toml
+[dependencies]
+partial-context = "0.1"
+```
 
 ```rust
 use partial_context::PartialContext;
