@@ -24,29 +24,26 @@ pub(crate) fn context_impl(args: TokenStream) -> TokenStream {
     let mut to_replicate = vec![];
     for arg in input.attrs {
         for seg in &arg.meta.path().segments {
-            match seg.ident.to_string().as_str() {
-                "context_needs" => {
-                    let meta_list = arg.meta.require_list().expect("should have derives etc");
-                    let mut groups = vec![];
-                    let mut current_group = vec![];
+            if seg.ident.to_string().as_str() == "context_needs" {
+                let meta_list = arg.meta.require_list().expect("should have derives etc");
+                let mut groups = vec![];
+                let mut current_group = vec![];
 
-                    for att in meta_list.tokens.clone().into_iter() {
-                        if att.to_string().as_str() == "," {
-                            groups.append(&mut current_group);
-                            current_group.clear();
-                        } else {
-                            current_group.push(att.to_token_stream())
-                        }
+                for att in meta_list.tokens.clone().into_iter() {
+                    if att.to_string().as_str() == "," {
+                        groups.append(&mut current_group);
+                        current_group.clear();
+                    } else {
+                        current_group.push(att.to_token_stream())
                     }
-                    groups.append(&mut current_group);
-                    let groups: Vec<proc_macro2::TokenStream> = groups
-                        .into_iter()
-                        .map(|it| it.into_iter().collect())
-                        .collect();
-                    let groups: proc_macro2::TokenStream = groups.into_iter().collect();
-                    to_replicate.push(groups)
                 }
-                _ => {}
+                groups.append(&mut current_group);
+                let groups: Vec<proc_macro2::TokenStream> = groups
+                    .into_iter()
+                    .map(|it| it.into_iter().collect())
+                    .collect();
+                let groups: proc_macro2::TokenStream = groups.into_iter().collect();
+                to_replicate.push(groups)
             }
         }
     }
