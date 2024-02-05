@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use darling::{ast::NestedMeta, FromDeriveInput, FromMeta};
+use darling::FromDeriveInput;
 use proc_macro::TokenStream;
 use quote::{quote, ToTokens};
 use syn::{parse_macro_input, Data, DeriveInput};
