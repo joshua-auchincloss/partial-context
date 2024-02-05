@@ -1,3 +1,4 @@
+#[cfg(feature = "derive")]
 pub use partial_context_codegen::PartialContext;
 
 pub trait PartialContext<L, R>
