@@ -1,0 +1,18 @@
+[package]
+name = "partial-context"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+documentation.workspace = true
+description.workspace = true
+homepage.workspace = true
+repository.workspace = true
+readme = "README.md"
+license.workspace = true
+publish = true
+
+[lib]
+
+[dependencies]
+partial-context-codegen = { path = "../macros" }

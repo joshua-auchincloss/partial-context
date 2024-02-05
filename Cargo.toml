@@ -1,0 +1,16 @@
+[workspace]
+members = ["partial-context", "macros"]
+resolver = "2"
+
+[workspace.package]
+authors = ["Joshua A. <joshua.auchincloss@proton.me>"]
+description = "Partial Context Types"
+documentation = "https://github.com/joshua-auchincloss/partial-context"
+edition = "2021"
+homepage = "https://github.com/joshua-auchincloss/partial-context"
+license = "AGPLv3 AND MIT AND BSD-2-Clause"
+repository = "https://github.com/joshua-auchincloss/partial-context"
+rust-version = "1.75.0"
+version = "0.1.0"
+
+[workspace.dependencies]

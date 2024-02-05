@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        toolchain: 1.75.0
+        components: rustfmt
+        cache: false
+
+    - name: Run Tests
+      run: |
+        cargo test

@@ -1,0 +1,77 @@
+name: Check and Lint
+
+on:
+  pull_request:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/cache@v3
+      with:
+        path: |
+          target/
+        key: ${{ hashFiles('crates/**') }}
+
+    - uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        toolchain: nightly
+        cache: false
+        components: cargo
+
+    - name: Cargo Check
+      run: |
+        cargo check --all-features
+
+  fmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/cache@v3
+      with:
+        path: |
+          docs/
+        key: ${{ hashFiles('crates/**') }}
+
+    - uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        toolchain: nightly
+        components: rustfmt
+        cache: false
+
+    - run: rustup component add rustfmt
+    - name: Cargo Check Fmt
+      run: |
+        cargo +nightly fmt --all -- --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/cache@v3
+      with:
+        path: |
+          docs/
+        key: ${{ hashFiles('crates/**') }}
+
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        components: clippy
+        override: true
+
+    - uses: actions-rs/clippy-check@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        args: --all-features
+        name: Clippy
